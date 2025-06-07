@@ -1,3 +1,4 @@
+import { CartProvider } from 'cart/CartContext';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -12,13 +13,15 @@ const mount = () => {
   
   root.render(
     <React.StrictMode>
-      {isStandalone ? (
-        <BrowserRouter>
+      <CartProvider>
+        {isStandalone ? (
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        ) : (
           <App />
-        </BrowserRouter>
-      ) : (
-        <App />
-      )}
+        )}
+      </CartProvider>
     </React.StrictMode>
   );
 };
