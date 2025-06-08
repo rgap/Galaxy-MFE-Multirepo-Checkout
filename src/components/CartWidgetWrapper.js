@@ -1,4 +1,5 @@
 import { useCart } from 'cart/useCart';
+import { Button } from 'common-components-react';
 import React from 'react';
 
 const CartItem = ({ item }) => {
@@ -19,18 +20,13 @@ const CartItem = ({ item }) => {
           marginBottom: '0.5rem'
         }}>
           <h4 style={{ margin: 0 }}>{item.name}</h4>
-          <button
+          <Button
+            variant="danger"
+            size="small"
             onClick={() => removeItem(item.id)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#dc3545',
-              cursor: 'pointer',
-              padding: '0.25rem'
-            }}
           >
             ✕
-          </button>
+          </Button>
         </div>
         
         <div style={{ 
@@ -45,33 +41,23 @@ const CartItem = ({ item }) => {
             alignItems: 'center',
             gap: '0.5rem'
           }}>
-            <button
+            <Button
+              variant="outline"
+              size="small"
               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-              style={{
-                padding: '0.25rem 0.5rem',
-                border: '1px solid #ddd',
-                backgroundColor: '#fff',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
             >
               -
-            </button>
+            </Button>
             
             <span>{item.quantity}</span>
             
-            <button
+            <Button
+              variant="outline"
+              size="small"
               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-              style={{
-                padding: '0.25rem 0.5rem',
-                border: '1px solid #ddd',
-                backgroundColor: '#fff',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
             >
               +
-            </button>
+            </Button>
           </div>
         </div>
       </div>

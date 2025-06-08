@@ -1,4 +1,5 @@
 import { useCart } from 'cart/useCart';
+import { Button } from 'common-components-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -65,22 +66,14 @@ const CheckoutWidget = () => {
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
-          <button
+          <Button
+            variant="success"
             onClick={handleCheckout}
-            style={{
-              backgroundColor: '#28a745',
-              color: 'white',
-              padding: '0.5rem 1rem',
-              border: 'none',
-              borderRadius: '4px',
-              marginTop: '1rem',
-              cursor: 'pointer',
-              width: '100%',
-              fontSize: '1.1rem'
-            }}
+            fullWidth
+            size="large"
           >
             Complete Purchase
-          </button>
+          </Button>
         </>
       ) : (
         <p>No items in cart</p>
