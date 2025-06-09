@@ -70,7 +70,7 @@ const CheckoutWidget = () => {
             variant="success"
             onClick={handleCheckout}
             fullWidth
-            size="large"
+            size="medium"
           >
             Complete Purchase
           </Button>
