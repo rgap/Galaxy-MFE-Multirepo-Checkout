@@ -21,13 +21,11 @@ module.exports = merge(webpackBaseConfig, {
     static: {
       directory: path.join(__dirname, '../dist'),
     },
+    port: 3003,
+    hot: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    port: 3003,
-    hot: true,
-    open: true,
-    compress: false,
     historyApiFallback: true,
   },
 }); 
