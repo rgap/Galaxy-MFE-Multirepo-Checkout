@@ -1,35 +1,35 @@
-const { dependencies } = require('../package.json');
+const { dependencies } = require("../package.json");
 
 module.exports = {
-  name: 'checkout',
-  filename: 'remoteEntry.js',
+  name: "checkout",
+  filename: "remoteEntry.js",
   remotes: {
-    cart: 'cart@http://localhost:3002/remoteEntry.js'
+    cart: "cart@http://localhost:3002/remoteEntry.js",
   },
   exposes: {
-    './App': './src/App',
-    './CheckoutWidget': './src/components/CheckoutWidget'
+    "./App": "./src/App",
+    "./CheckoutWidget": "./src/components/CheckoutWidget",
   },
   shared: {
     react: {
       singleton: true,
       requiredVersion: dependencies.react,
-      eager: true
+      eager: true,
     },
-    'react-dom': {
+    "react-dom": {
       singleton: true,
-      requiredVersion: dependencies['react-dom'],
-      eager: true
+      requiredVersion: dependencies["react-dom"],
+      eager: true,
     },
-    'react-router-dom': {
+    "react-router-dom": {
       singleton: true,
-      requiredVersion: dependencies['react-router-dom'],
-      eager: true
+      requiredVersion: dependencies["react-router-dom"],
+      eager: true,
     },
-    'common-components-react': {
+    "mfe-common-components": {
       singleton: true,
-      requiredVersion: dependencies['common-components-react'],
-      eager: true
-    }
-  }
-}; 
+      requiredVersion: dependencies["mfe-common-components"],
+      eager: true,
+    },
+  },
+};
