@@ -1,88 +1,91 @@
 import { useCart } from "cart/useCart";
 import { Button } from "mfe-common-components";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../index.css";
 
 const CheckoutWidget = () => {
   const navigate = useNavigate();
   const { items, getTotal, clearCart } = useCart();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
-  const handleCheckout = () => {
-    // Here you would typically handle the checkout process
-    alert("Thank you for your purchase!");
-    clearCart();
-    navigate("/");
+  const handleCheckout = async () => {
+    setIsProcessing(true);
+
+    // Simulate checkout process
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    setIsProcessing(false);
+    setIsComplete(true);
+
+    // Clear cart and navigate after showing success
+    setTimeout(() => {
+      clearCart();
+      navigate("/");
+    }, 3000);
   };
 
   const subtotal = getTotal ? getTotal() : items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const tax = subtotal * 0.1; // 10% tax
   const total = subtotal + tax;
 
+  if (isComplete) {
+    return (
+      <div className="checkout-widget">
+        <div className="purchase-complete">
+          <div className="purchase-complete-icon">✅</div>
+          <h2>Purchase Complete!</h2>
+          <p>Thank you for your order. You will be redirected shortly.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div
-      style={{
-        padding: "1rem",
-        backgroundColor: "#fff",
-        borderRadius: "4px",
-        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-      }}
-    >
-      <h2>Checkout Summary</h2>
+    <div className="checkout-widget">
+      <h2 className="checkout-widget-title">Checkout Summary</h2>
+
       {items.length > 0 ? (
         <>
-          <div style={{ marginBottom: "1rem" }}>
-            <h3>Items to purchase:</h3>
+          <div className="checkout-items">
+            <h3 className="checkout-items-title">Items to purchase:</h3>
             {items.map((item, index) => (
-              <div
-                key={item.id || index}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <span>
-                  {item.name} (x{item.quantity})
-                </span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+              <div key={item.id || index} className="checkout-item">
+                <div className="checkout-item-info">
+                  <div className="checkout-item-name">{item.name}</div>
+                  <div className="checkout-item-quantity">Quantity: {item.quantity}</div>
+                </div>
+                <div className="checkout-item-price">${(item.price * item.quantity).toFixed(2)}</div>
               </div>
             ))}
           </div>
-          <div
-            style={{
-              borderTop: "1px solid #eee",
-              paddingTop: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-              <span>Subtotal:</span>
-              <span>${subtotal.toFixed(2)}</span>
+
+          <div className="checkout-summary">
+            <div className="summary-row">
+              <span className="summary-label">Subtotal:</span>
+              <span className="summary-value">${subtotal.toFixed(2)}</span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-              <span>Tax (10%):</span>
-              <span>${tax.toFixed(2)}</span>
+            <div className="summary-row">
+              <span className="summary-label">Tax (10%):</span>
+              <span className="summary-value">${tax.toFixed(2)}</span>
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                fontWeight: "bold",
-                marginTop: "0.5rem",
-                paddingTop: "0.5rem",
-                borderTop: "1px solid #eee",
-              }}
-            >
-              <span>Total:</span>
-              <span>${total.toFixed(2)}</span>
+            <div className="summary-row summary-total">
+              <span className="summary-label">Total:</span>
+              <span className="summary-value">${total.toFixed(2)}</span>
             </div>
           </div>
-          <Button variant="success" onClick={handleCheckout} fullWidth size="medium">
-            Complete Purchase
+
+          <Button variant="success" onClick={handleCheckout} disabled={isProcessing} fullWidth size="medium">
+            {isProcessing ? "Processing..." : "Complete Purchase"}
           </Button>
         </>
       ) : (
-        <p>No items in cart</p>
+        <div className="empty-checkout">
+          <div className="empty-checkout-icon">🛒</div>
+          <h3 className="empty-checkout-title">No items in cart</h3>
+          <p className="empty-checkout-message">Add some items to your cart to proceed with checkout.</p>
+        </div>
       )}
     </div>
   );

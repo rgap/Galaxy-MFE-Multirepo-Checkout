@@ -1,29 +1,22 @@
-import React from 'react';
-import CartWidgetWrapper from '../components/CartWidgetWrapper';
-import CheckoutWidget from '../components/CheckoutWidget';
+import React from "react";
+import { CartWidgetWrapper, CheckoutWidget } from "../components";
+import "../index.css";
 
 const CheckoutPage = () => {
   return (
-    <div style={{
-      maxWidth: '1200px',
-      margin: '2rem auto',
-      padding: '0 1rem'
-    }}>
-      <h1 style={{ marginBottom: '2rem' }}>Checkout</h1>
-      
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '2rem',
-        alignItems: 'start'
-      }}>
-        <div>
-          <h2 style={{ marginBottom: '1rem' }}>Shopping Cart</h2>
+    <div className="container">
+      <div className="checkout-header">
+        <h1 className="checkout-title">Checkout</h1>
+        <p className="checkout-subtitle">Review your cart and complete your purchase</p>
+      </div>
+
+      <div className="checkout-layout">
+        <div className="checkout-card">
+          <h2 className="checkout-widget-title">Shopping Cart</h2>
           <CartWidgetWrapper />
         </div>
 
         <div>
-          <h2 style={{ marginBottom: '1rem' }}>Order Summary</h2>
           <CheckoutWidget />
         </div>
       </div>
@@ -31,4 +24,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage; 
+export default CheckoutPage;
